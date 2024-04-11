@@ -1,7 +1,7 @@
 import { FinanceControlProps } from "../../models/interfaces/financeControlProps/financeControlProps";
 import { Movement } from "../../models/interfaces/movement/movement";
-import Balance from "../balance/balance";
-import Expense from "../expense/expense";
+import { Balance } from "../balance/balance";
+import { Expense } from "../expense/expense";
 import "./financeControl.css";
 
 const FinanceControl = ({
@@ -25,4 +25,4 @@ const FinanceControl = ({
   );
 };
 
-export default FinanceControl;
+export { FinanceControl };

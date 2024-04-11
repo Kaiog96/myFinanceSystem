@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "./App.css";
-import FinanceControl from "./components/financeControl/financeControl";
-import Header from "./components/header/header";
+import { FinanceControl } from "./components/financeControl/financeControl";
+import { Header } from "./components/header/header";
 import { Movement } from "./models/interfaces/movement/movement";
+import { Movements } from "./components/moviments/movements";
+import { FormatMoney } from "./utils/util";
 
 function App() {
   const [currentBalance, setCurrentBalance] = useState(0);
@@ -15,7 +17,7 @@ function App() {
         const movements = [...prevMovements];
         movements.unshift({
           name: movement.name,
-          value: movement.value,
+          value: FormatMoney(movement.value),
           type: movement.type,
           id: Math.random().toString(),
         });
@@ -48,6 +50,7 @@ function App() {
         expenses={currentExpenses}
         handleSetMovement={setNewMovement}
       />
+      <Movements movementsList={movementsItens} />
     </div>
   );
 }

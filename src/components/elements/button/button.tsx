@@ -14,4 +14,4 @@ const Button = ({ title, priority, action, type, disable }: ButtonProps) => {
   );
 };
 
-export default Button;
+export { Button };
