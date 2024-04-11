@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { BalanceProps } from "../../models/interfaces/balanceProps/balanceProps";
+import { ExpenseProps } from "../../models/interfaces/expenseProps/expenseProps";
+import "./expense.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDollar } from "@fortawesome/free-solid-svg-icons";
-import "./balance.css";
+import { faPercent } from "@fortawesome/free-solid-svg-icons";
 import Button from "../button/button";
-
-const Balance = ({ emitMovement, currentBalance }: BalanceProps) => {
+const Expense = ({
+  emitMovement,
+  currentExpenses,
+  currentBalance,
+}: ExpenseProps) => {
   const [renderInputForm, setRenderInputForm] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(true);
   const [inputName, setInputName] = useState("");
   const [inputValue, setInputValue] = useState("");
 
@@ -28,12 +31,16 @@ const Balance = ({ emitMovement, currentBalance }: BalanceProps) => {
       return;
     }
 
-    hideInputForm();
-    emitMovement({
-      name: inputName,
-      value: inputValue,
-      type: "Input",
-    });
+    if (currentBalance >= Number(inputValue)) {
+      hideInputForm();
+      emitMovement({
+        name: inputName,
+        value: inputValue,
+        type: "Output",
+      });
+    } else {
+      setIsFormValid(false);
+    }
   };
 
   const handleInputNameForm = (event: React.FormEvent<HTMLInputElement>) => {
@@ -52,20 +59,21 @@ const Balance = ({ emitMovement, currentBalance }: BalanceProps) => {
 
   return (
     <div>
-      <div className="balance_container">
-        <div className="balance_card">
-          <header className="balance_header">
-            <FontAwesomeIcon icon={faDollar} color="#7af1a7" size="2x" />
-            <h2>Saldo</h2>
+      <div className="expense_container">
+        <div className="expense_card">
+          <header className="expense_header">
+            <FontAwesomeIcon icon={faPercent} color="#E43F4d" size="2x" />
+            <h2>Despesas</h2>
           </header>
 
-          <h3> {currentBalance > 0 ? currentBalance : "R$ 0"} </h3>
+          <h3> {currentExpenses > 0 ? currentExpenses : "R$ 0"} </h3>
 
           {!renderInputForm && (
             <Button
               action={handleRenderInputForm}
-              title="Entrada"
-              priority="Input"
+              title="Saída"
+              priority="Output"
+              disable={currentBalance === 0}
             />
           )}
 
@@ -79,14 +87,14 @@ const Balance = ({ emitMovement, currentBalance }: BalanceProps) => {
                 <input
                   type="text"
                   placeholder="Nome"
-                  className="balance_input"
+                  className="expense_input"
                   value={inputName}
                   onChange={handleInputNameForm}
                 />
                 <input
                   type="text"
                   placeholder="Valor"
-                  className="balance_input"
+                  className="expense_input"
                   value={inputValue}
                   onChange={handleInputValueForm}
                 />
@@ -97,7 +105,7 @@ const Balance = ({ emitMovement, currentBalance }: BalanceProps) => {
                   priority="Output"
                   action={hideInputForm}
                 />
-                <Button title="Adicionar" priority="Input" type="submit" />
+                <Button type="submit" title="Adicionar" priority="Input" />
               </div>
             </form>
           )}
@@ -107,4 +115,4 @@ const Balance = ({ emitMovement, currentBalance }: BalanceProps) => {
   );
 };
 
-export default Balance;
+export default Expense;
