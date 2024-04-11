@@ -3,7 +3,7 @@ import { BalanceProps } from "../../models/interfaces/balanceProps/balanceProps"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollar } from "@fortawesome/free-solid-svg-icons";
 import "./balance.css";
-import Button from "../button/button";
+import Button from "../elements/button/button";
 
 const Balance = ({ emitMovement, currentBalance }: BalanceProps) => {
   const [renderInputForm, setRenderInputForm] = useState(false);

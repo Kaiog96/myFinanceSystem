@@ -3,7 +3,8 @@ import { ExpenseProps } from "../../models/interfaces/expenseProps/expenseProps"
 import "./expense.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPercent } from "@fortawesome/free-solid-svg-icons";
-import Button from "../button/button";
+import Button from "../elements/button/button";
+
 const Expense = ({
   emitMovement,
   currentExpenses,
